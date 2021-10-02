@@ -14,6 +14,7 @@ using ValidationException = System.ComponentModel.DataAnnotations.ValidationExce
 using BillChopBE.Services.Configurations;
 using ProjectPortableTools.Extensions;
 using System.Linq;
+using Microsoft.Extensions.Options;
 
 namespace BillChopBETests
 {
@@ -23,13 +24,13 @@ namespace BillChopBETests
         {
             internal IUserRepository UserRepository { get; set; } = A.Fake<IUserRepository>();
 
-            internal JwtConfig Config { get; set; } = new JwtConfig() 
+            internal IOptions<JwtConfig> Config { get; set; } = Options.Create(new JwtConfig()
             {
                 Key = Guid.NewGuid().ToString(),
                 Issuer = "SomeIssuer",
                 Audience = "SomeAudience",
                 Subject = "SomeSubject"
-            };
+            });
 
             public UserService CreateSut()
             {

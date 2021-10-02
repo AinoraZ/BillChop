@@ -50,7 +50,7 @@ namespace BillChopBE
                 });
 
             // Example of creating injectable config
-            services.ConfigureValidatableSetting<JwtConfig>(Configuration.GetSection("Jwt"));
+            services.ConfigureWithValidation<JwtConfig>(Configuration.GetSection("Jwt"));
 
             services.AddBillChopContext(Configuration.GetConnectionString("BillChopDb"));
             services.AddBillChopRepositories();

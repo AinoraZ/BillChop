@@ -11,6 +11,7 @@ using System.Text;
 using System.Linq;
 using BillChopBE.Services.Configurations;
 using BillChopBE.DataAccessLayer.Models;
+using Microsoft.Extensions.Options;
 
 namespace BillChopBE.Services
 {
@@ -28,10 +29,10 @@ namespace BillChopBE.Services
         private readonly IUserRepository userRepository;
         private readonly JwtConfig config;
 
-        public UserService(IUserRepository userRepository, JwtConfig config)
+        public UserService(IUserRepository userRepository, IOptions<JwtConfig> config)
         {
             this.userRepository = userRepository;
-            this.config = config;
+            this.config = config.Value;
         }
 
         public async Task<User> GetUserAsync(Guid id)
