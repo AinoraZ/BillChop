@@ -16,6 +16,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using BillChopBE.Services.Configurations;
 using Microsoft.Extensions.Hosting;
+using BillChopBE.DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace BillChopBE
 {
@@ -51,6 +53,7 @@ namespace BillChopBE
 
             // Example of creating injectable config
             services.ConfigureWithValidation<JwtConfig>(Configuration.GetSection("Jwt"));
+            services.ConfigureWithValidation<BillChopConfig>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddBillChopContext(Configuration.GetConnectionString("BillChopDb"));
             services.AddBillChopRepositories();

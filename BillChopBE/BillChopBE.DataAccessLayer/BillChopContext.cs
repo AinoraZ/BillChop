@@ -1,16 +1,21 @@
 using BillChopBE.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace BillChopBE.DataAccessLayer
 {
     public class BillChopContext : DbContext
     {
-        public BillChopContext() : base()
+        private readonly BillChopConfig config;
+
+        public BillChopContext(IOptions<BillChopConfig> config) : base()
         {
+            this.config = config.Value;
         }
 
-        public BillChopContext(DbContextOptions<BillChopContext> options) : base(options)
+        public BillChopContext(IOptions<BillChopConfig> config, DbContextOptions<BillChopContext> options) : base(options)
         {
+            this.config = config.Value;
         }
 
         public DbSet<User> Users => Set<User>();
@@ -25,7 +30,7 @@ namespace BillChopBE.DataAccessLayer
             {
                 optionsBuilder
                     .UseLazyLoadingProxies()
-                    .UseSqlServer(ConnectionStringResolver.GetBillChopDbConnectionString());
+                    .UseSqlServer(config.BillChopDb);
             }
 
             base.OnConfiguring(optionsBuilder);

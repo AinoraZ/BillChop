@@ -10,13 +10,13 @@ namespace BillChopBE.Extensions
     {
         public static IHost MigrateBillChopDb(this IHost webHost)
         {
-            var connectionString = ConnectionStringResolver.GetBillChopDbConnectionString();
+            var dbConfig = webHost.Services.GetRequiredService<IOptions<BillChopConfig>>();
             var options = new DbContextOptionsBuilder<BillChopContext>()
-                    .UseSqlServer(connectionString)
-                    .UseLazyLoadingProxies()
-                    .Options;
+                .UseSqlServer(dbConfig.Value.BillChopDb)
+                .UseLazyLoadingProxies()
+                .Options;
 
-            var dbContext = new BillChopContext(options);
+            var dbContext = new BillChopContext(dbConfig, options);
             dbContext.Database.Migrate();
 
             return webHost;
