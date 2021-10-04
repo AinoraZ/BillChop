@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Controllers.Models
 {
-    public class ApiBill : ValidatableModel
+    public class ApiBill
     {
         [Required]
         public Guid Id { get; set; }

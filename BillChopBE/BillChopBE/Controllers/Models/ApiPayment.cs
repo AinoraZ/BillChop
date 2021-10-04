@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Controllers.Models
 {
-    public class ApiPayment : ValidatableModel
+    public class ApiPayment
     {
         [Required]
         public Guid Id { get; set; }
