@@ -13,10 +13,9 @@ using ProjectPortableTools.Extensions;
 using Bogus;
 using System.Collections.Generic;
 using System.Linq;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 using BillChopBE.DataAccessLayer.Filters;
 
-namespace BillChopBETests
+namespace BillChopBETests.Services
 {
     public class BillServiceTests
     {
@@ -187,19 +186,6 @@ namespace BillChopBETests
             //Act & Assert
             var exception = Assert.ThrowsAsync<NotFoundException>(async () => await billService.CreateAndSplitBillAsync(createNewBill));
             exception.Message.ShouldBe($"Group with id {group.Id} does not exist.");
-        }
-
-        [Test]
-        public void CreateAndSplitBillAsync_WhenCreateNewGroupIsNotValid_ShouldThrow()
-        {
-            //Arrange
-            var sutBuilder = new BillServiceSutBuilder();
-
-            var createNewBill = new CreateNewBill();
-            var billService = sutBuilder.CreateSut();
-
-            //Act & Assert
-            var exception = Assert.ThrowsAsync<ValidationException>(async () => await billService.CreateAndSplitBillAsync(createNewBill));
         }
 
         [Test]

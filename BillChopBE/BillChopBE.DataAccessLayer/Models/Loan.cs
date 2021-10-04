@@ -1,11 +1,10 @@
 ﻿using BillChopBE.DataAccessLayer.Models.Interfaces;
-using BillChopBE.Validation;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.DataAccessLayer.Models
 {
-    public class Loan : ValidatableModel, IDbModel
+    public class Loan : IDbModel
     {
         [Required]
         [Key]

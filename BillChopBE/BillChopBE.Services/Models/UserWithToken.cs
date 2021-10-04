@@ -3,7 +3,7 @@ using BillChopBE.DataAccessLayer.Models;
 
 namespace BillChopBE.Services.Models
 {
-    public class UserWithToken: User
+    public class UserWithToken : User
     {        
         public UserWithToken(User user, string token)
         {

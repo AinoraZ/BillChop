@@ -1,12 +1,11 @@
 ﻿using BillChopBE.DataAccessLayer.Models.Interfaces;
-using BillChopBE.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.DataAccessLayer.Models
 {
-    public class User : ValidatableModel, IDbModel
+    public class User : IDbModel
     {
         [Required]
         [Key]
@@ -16,7 +15,6 @@ namespace BillChopBE.DataAccessLayer.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        [RegularExpression(@"^[\w_+-\.]+@([\w-]+\.)+[\w-]{2,}$")]
         public string Email { get; set; } = null!;
 
         [Required]

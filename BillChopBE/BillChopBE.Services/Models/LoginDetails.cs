@@ -1,9 +1,8 @@
-﻿using BillChopBE.Validation;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.Services.Models
 {
-    public class LoginDetails : ValidatableModel
+    public class LoginDetails
     {
         [Required]
         [RegularExpression(@"^[\w_+-\.]+@([\w-]+\.)+[\w-]{2,}$")]

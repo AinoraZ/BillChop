@@ -52,7 +52,6 @@ namespace BillChopBE.Services
 
         public Task<Group> AddGroupAsync(CreateNewGroup newGroupData)
         {
-            newGroupData.Validate();
             var group = newGroupData.ToGroup();
 
             return groupRepository.AddAsync(group);

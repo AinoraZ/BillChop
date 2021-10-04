@@ -46,7 +46,6 @@ namespace BillChopBE.Services
 
         public async Task<User> LoginAsync(LoginDetails loginDetails)
         {
-            loginDetails.Validate();
             var hashed = Hasher.GetHashed(loginDetails.Password);
             var user = await userRepository.GetByEmailAndPasswordAsync(loginDetails.Email, hashed);
             if (user == null)
@@ -83,7 +82,6 @@ namespace BillChopBE.Services
 
         public async Task<User> AddUserAsync(CreateNewUser newUserData)
         {
-            newUserData.Validate();
             var user = newUserData.ToUser();
 
             user.Password = Hasher.GetHashed(user.Password);

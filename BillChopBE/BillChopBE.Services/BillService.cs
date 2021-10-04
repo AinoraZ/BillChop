@@ -54,8 +54,6 @@ namespace BillChopBE.Services
 
         public async Task<Bill> CreateAndSplitBillAsync(CreateNewBill newBillData)
         {
-            newBillData.Validate();
-
             var group = await groupRepository.GetByIdAsync(newBillData.GroupContextId);
             if (group == null)
                 throw new NotFoundException($"Group with id {newBillData.GroupContextId} does not exist.");

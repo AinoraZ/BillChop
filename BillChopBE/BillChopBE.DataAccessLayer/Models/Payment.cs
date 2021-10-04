@@ -1,11 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using BillChopBE.DataAccessLayer.Models.Interfaces;
-using BillChopBE.Validation;
 
 namespace BillChopBE.DataAccessLayer.Models
 {
-    public class Payment : ValidatableModel, IDbModel
+    public class Payment : IDbModel
     {
         [Required]
         public Guid Id { get; set; }

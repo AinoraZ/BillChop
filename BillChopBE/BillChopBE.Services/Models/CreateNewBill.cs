@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Services.Models
 {
-    public class CreateNewBill : ValidatableModel
+    public class CreateNewBill
     {
         [Required]
         public string Name { get; set; } = null!;

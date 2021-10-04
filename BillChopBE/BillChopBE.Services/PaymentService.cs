@@ -87,8 +87,6 @@ namespace BillChopBE.Services
 
         public async Task<Payment> AddPaymentAsync(CreateNewPayment newPaymentData) 
         {
-            newPaymentData.Validate();
-
             var payer = await userRepository.GetByIdAsync(newPaymentData.PayerId);
             if (payer == null)
                 throw new NotFoundException("User with given id does not exist.");

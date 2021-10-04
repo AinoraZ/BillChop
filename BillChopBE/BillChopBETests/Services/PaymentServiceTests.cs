@@ -15,7 +15,7 @@ using System.Linq;
 using BillChopBE.DataAccessLayer.Filters;
 using BillChopBE.Exceptions;
 
-namespace BillChopBETests
+namespace BillChopBETests.Services
 {
     public class PaymentServiceTests
     {

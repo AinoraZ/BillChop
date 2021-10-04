@@ -1,10 +1,9 @@
 ﻿using BillChopBE.DataAccessLayer.Models;
-using BillChopBE.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.Services.Models
 {
-    public class CreateNewUser : ValidatableModel
+    public class CreateNewUser
     {
         [Required]
         public string Name { get; set; } = null!;
