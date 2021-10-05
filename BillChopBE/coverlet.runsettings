@@ -5,19 +5,7 @@
 			<DataCollector friendlyName="XPlat Code Coverage">
 				<Configuration>
 					<Format>lcov</Format>
-					<CodeCoverage>
-						<Sources>
-							<Exclude>
-								<Source>**/Program.cs</Source>
-								<Source>**/Migrations/*</Source>
-								<Source>**/Startup.cs</Source>
-								<Source>**/Extensions/**</Source>
-								<Source>**/BillChopContext.cs</Source>
-								<Source>**/BillChopConfig.cs</Source>
-								<Source>**/JwtConfig.cs</Source>
-							</Exclude>
-						</Sources>
-					</CodeCoverage>
+					<ExcludeByFile>**/Program.cs,**/Migrations/*,**/Startup.cs,**/Extensions/**,**/BillChopContext.cs,**/BillChopConfig.cs,**/JwtConfig.cs,</ExcludeByFile>
 				</Configuration>
 			</DataCollector>
 		</DataCollectors>
