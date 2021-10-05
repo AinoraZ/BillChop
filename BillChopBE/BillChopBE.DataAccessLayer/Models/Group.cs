@@ -1,12 +1,11 @@
 ﻿using BillChopBE.DataAccessLayer.Models.Interfaces;
-using BillChopBE.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.DataAccessLayer.Models
 {
-    public class Group : ValidatableModel, IDbModel
+    public class Group : IDbModel
     {
         [Required]
         [Key]

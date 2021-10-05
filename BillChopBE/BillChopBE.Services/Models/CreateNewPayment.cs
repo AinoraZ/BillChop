@@ -1,11 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using BillChopBE.DataAccessLayer.Models;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Services.Models
 {
-    public class CreateNewPayment : ValidatableModel
+    public class CreateNewPayment
     {
         [Required]
         public decimal Amount { get; set; }

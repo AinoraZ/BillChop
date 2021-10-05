@@ -2,7 +2,6 @@
 using BillChopBE.DataAccessLayer.Models.Interfaces;
 using BillChopBE.DataAccessLayer.Repositories.Interfaces;
 using BillChopBE.Exceptions;
-using BillChopBE.Validation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BillChopBE.DataAccessLayer.Repositories
 {
-    public abstract class AbstractEFRepository<TEntity> : IRepository<TEntity> where TEntity : class, IValidatableModel, IDbModel
+    public abstract class AbstractEFRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDbModel
     {
         protected abstract DbSet<TEntity> DbSet { get; }
         protected abstract DbContext DbContext { get; }
@@ -30,8 +29,6 @@ namespace BillChopBE.DataAccessLayer.Repositories
 
         public async Task<TEntity> AddAsync(TEntity entity)
         {
-            entity.Validate();
-
             var newEntity = await DbSet.AddAsync(entity);
             await DbContext.SaveChangesAsync();
 
@@ -48,7 +45,6 @@ namespace BillChopBE.DataAccessLayer.Repositories
             if (entityToModify.Id != id)
                 throw new DbException("Modification of entity id is not allowed");
 
-            entityToModify.Validate();
             await DbContext.SaveChangesAsync();
 
             return entityToModify;

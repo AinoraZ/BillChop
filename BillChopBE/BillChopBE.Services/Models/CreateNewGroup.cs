@@ -1,10 +1,9 @@
 ﻿using BillChopBE.DataAccessLayer.Models;
-using BillChopBE.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillChopBE.Services.Models
 {
-    public class CreateNewGroup : ValidatableModel
+    public class CreateNewGroup
     {
         [Required]
         public string Name { get; set; } = null!;

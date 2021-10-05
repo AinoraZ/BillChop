@@ -12,9 +12,8 @@ using Bogus;
 using System.Collections.Generic;
 using System.Linq;
 using BillChopBE.Services.Models;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
-namespace BillChopBETests
+namespace BillChopBETests.Services
 {
     public class GroupServiceTests
     {
@@ -258,18 +257,6 @@ namespace BillChopBETests
 
             //Assert
             resultGroup.ShouldBe(group);
-        }
-
-        [Test]
-        public void AddGroupAsync_WhenGroupNameIsNull_ShouldThrow()
-        {
-            //Arrange
-            var sutBuilder = new GroupServiceSutBuilder();
-            var groupService = sutBuilder.CreateSut();
-            var groupToCreate = new CreateNewGroup();
-            
-            //Act & Assert
-            var exception = Assert.ThrowsAsync<ValidationException>(async () => await groupService.AddGroupAsync(groupToCreate));
         }
     }
 }

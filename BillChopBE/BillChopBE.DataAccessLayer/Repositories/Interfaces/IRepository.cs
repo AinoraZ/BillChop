@@ -1,13 +1,12 @@
 ﻿using BillChopBE.DataAccessLayer.Filters;
 using BillChopBE.DataAccessLayer.Models.Interfaces;
-using BillChopBE.Validation;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BillChopBE.DataAccessLayer.Repositories.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class, IValidatableModel, IDbModel
+    public interface IRepository<TEntity> where TEntity : class, IDbModel
     {
         Task<IList<TEntity>> GetAllAsync(IDbFilter<TEntity>? dbFilter = null);
 

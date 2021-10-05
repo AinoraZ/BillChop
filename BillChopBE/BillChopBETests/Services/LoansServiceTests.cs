@@ -1,5 +1,4 @@
 ﻿using BillChopBE.Services;
-using BillChopBE.Exceptions;
 using NUnit.Framework;
 using FakeItEasy;
 using Shouldly;
@@ -10,8 +9,6 @@ using System.Threading.Tasks;
 using BillChopBE.DataAccessLayer.Models;
 using Bogus;
 using System.Collections.Generic;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
-using BillChopBE.Services.Configurations;
 using ProjectPortableTools.Extensions;
 using System.Linq;
 using BillChopBE.DataAccessLayer.Filters.Factories;

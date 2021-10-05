@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using BillChopBE.DataAccessLayer;
 using BillChopBE.DataAccessLayer.Repositories;
 using BillChopBE.DataAccessLayer.Repositories.Interfaces;
-using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BillChopBE.Extensions
 {
@@ -38,7 +38,6 @@ namespace BillChopBE.Extensions
             return services.AddScoped<DbConnection>((serviceProvider) =>
             {
                 var dbConnection = new SqlConnection(connectionString);
-                dbConnection.Open();
                 return dbConnection;
             });
         }
@@ -47,7 +46,8 @@ namespace BillChopBE.Extensions
         {
             return services.AddScoped((serviceProvider) =>
             {
-                var dbConnection = serviceProvider.GetService<DbConnection>() ?? throw new Exception("Could not acquire DbConnection service");
+                var dbConnection = serviceProvider.GetRequiredService<DbConnection>();
+                dbConnection.Open();
 
                 return dbConnection.BeginTransaction(level);
             });
@@ -57,8 +57,8 @@ namespace BillChopBE.Extensions
         {
             return services.AddScoped((serviceProvider) =>
             {
-                var dbConnection = serviceProvider.GetService<DbConnection>();
-                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+                var dbConnection = serviceProvider.GetRequiredService<DbConnection>();
+                var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 
                 return new DbContextOptionsBuilder<BillChopContext>()
                     .UseLoggerFactory(loggerFactory)
@@ -72,10 +72,12 @@ namespace BillChopBE.Extensions
         {
             return services.AddScoped((serviceProvider) =>
             {
-                var transaction = serviceProvider.GetService<DbTransaction>() ?? throw new Exception("Could not acquire DbTransaction service");
-                var options = serviceProvider.GetService<DbContextOptions<BillChopContext>>() ?? throw new Exception("Could not acquire DbContextOptions service");
+                var transaction = serviceProvider.GetRequiredService<DbTransaction>();
 
-                var context = new BillChopContext(options);
+                var config = serviceProvider.GetRequiredService<IOptions<BillChopConfig>>();
+                var options = serviceProvider.GetRequiredService<DbContextOptions<BillChopContext>>();
+
+                var context = new BillChopContext(config, options);
                 context.Database.UseTransaction(transaction);
                 return context;
             });

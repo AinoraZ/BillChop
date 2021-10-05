@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Services.Configurations
 {
-    public class JwtConfig : ValidatableModel
+    public class JwtConfig
     {
         [Required]
         public string Key { get; set; } = null!;

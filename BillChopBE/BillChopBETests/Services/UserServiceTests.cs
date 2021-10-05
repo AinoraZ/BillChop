@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using BillChopBE.DataAccessLayer.Models;
 using Bogus;
 using System.Collections.Generic;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 using BillChopBE.Services.Configurations;
 using ProjectPortableTools.Extensions;
 using System.Linq;
+using Microsoft.Extensions.Options;
 
-namespace BillChopBETests
+namespace BillChopBETests.Services
 {
     public class UserServiceTests
     {
@@ -23,13 +23,13 @@ namespace BillChopBETests
         {
             internal IUserRepository UserRepository { get; set; } = A.Fake<IUserRepository>();
 
-            internal JwtConfig Config { get; set; } = new JwtConfig() 
+            internal IOptions<JwtConfig> Config { get; set; } = Options.Create(new JwtConfig()
             {
                 Key = Guid.NewGuid().ToString(),
                 Issuer = "SomeIssuer",
                 Audience = "SomeAudience",
                 Subject = "SomeSubject"
-            };
+            });
 
             public UserService CreateSut()
             {
@@ -119,23 +119,6 @@ namespace BillChopBETests
         }
 
         [Test]
-        [TestCase("Test", "@test.com", "test123")]
-        [TestCase("John K", "john@gmailom", "test123")]
-        [TestCase("Alice", "alicyahoo.com", "test123")]
-        public void LoginAsync_WhenLoginDetailsAreIncorrect_ShouldThrow(string name, string email, string password)
-        {
-            //Arrange
-            var sutBuilder = new UserServiceSutBuilder();
-            var user = sutBuilder.CreateUser(name: name, email: email, password: password);
-            var loginDetails = sutBuilder.CreateLoginDetails(email: email, password: password);
-            var userService = sutBuilder.CreateSut();
-
-            //Act & Assert
-            var exception = Assert.ThrowsAsync<ValidationException>(async () => await userService.LoginAsync(loginDetails));
-        }
-
-
-        [Test]
         [TestCase("Test", "test@test.com")]
         [TestCase("John K", "john@gmail.com")]
         [TestCase("Alice", "alice@yahoo.com")]
@@ -173,26 +156,6 @@ namespace BillChopBETests
             //Act & Assert
             var exception = Assert.ThrowsAsync<NotFoundException>(async () => await userService.GetUserAsync(userId));
             exception.Message.ShouldBe($"User with id ({userId}) does not exist");
-        }
-
-        [Test]
-        [TestCase("Test", "@test.com")]
-        [TestCase("John K", "john@gmailom")]
-        [TestCase("Alice", "alicyahoo.com")]
-        public void AddUserAsync_WhenEmailIsWrong_ShouldThrow(string name, string email)
-        {
-            //Arrange
-            var sutBuilder = new UserServiceSutBuilder();
-            var user = sutBuilder.CreateUser(name: name, email: email);
-            var user2 = new CreateNewUser
-            {
-                Email = email,
-                Name = name
-            };
-            var userService = sutBuilder.CreateSut();
-
-            //Act & Assert
-            var exception = Assert.ThrowsAsync<ValidationException>(async () => await userService.AddUserAsync(user2));
         }
 
         [Test]

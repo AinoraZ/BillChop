@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using BillChopBE.Validation;
 
 namespace BillChopBE.Controllers.Models
 {
-    public class ApiUser : ValidatableModel
+    public class ApiUser
     {
         [Required]
         public Guid Id { get; set; }
@@ -17,7 +16,7 @@ namespace BillChopBE.Controllers.Models
         public string Email { get; set; } = null!;
     }
 
-    public class ApiUserWithToken : ValidatableModel
+    public class ApiUserWithToken
     {
         [Required]
         public Guid Id { get; set; }
