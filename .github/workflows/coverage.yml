@@ -33,12 +33,12 @@ jobs:
       - name: Build solution
         run: dotnet build
       - name: Generate Code Coverage
-        run: dotnet test '/p:ExcludeByFile="**/Program.cs,**/Migrations/*.*,**/Startup.cs,**/Extensions/ServiceCollectionBillChopContextExtensions.cs,**/Extensions/WebHostExtensions.cs"' /p:CollectCoverage=true /p:CoverletOutput="TestResults/" /p:CoverletOutputFormat=lcov
+        run: dotnet test --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Archive coverage
         uses: actions/upload-artifact@v2
         with:
           name: backend-coverage
-          path: ./BillChopBE/BillChopBETests/TestResults/coverage.info 
+          path: ./BillChopBE/BillChopBETests/TestResults/ 
   cover-frontend:
     runs-on: ${{ matrix.os }}
     defaults:
@@ -86,7 +86,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: backend-coverage
-          path: ./BillChopBE/BillChopBETests/TestResults/coverage.info
+          path: ./BillChopBE/BillChopBETests/TestResults/
       - uses: actions/download-artifact@v2
         with:
           name: frontend-coverage
